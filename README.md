@@ -24,10 +24,7 @@ In the raspi-config module, go to 7 Advanced Options > A8 GL Driver > Choose G1 
 After that it is time to install pi3d:
 sudo pip3 install pi3d
 
-Download PIcFrame:
-wget https://github.com/CyclistHomeCoder/PIcFrame/archive/master.zip && unzip master.zip && rm master.zip && mv PIcFrame-master PIcFrame
-
-Unzip and run with supplied script.
+Download PIcFrame, unzip and run with supplied script.
 
 Options available and con figurable in PIcFrame_config.py.
 
