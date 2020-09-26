@@ -13,6 +13,7 @@ USING exif info to rotate images
 
     ESC to quit, 's' to reverse, any other key to move on one.
 '''
+
 import os
 import time
 import random
@@ -136,7 +137,9 @@ def tex_load(pic_num, iFiles, size=None):
 
 def tidy_name(path_name):
     name = os.path.basename(path_name)
-    name = ''.join([c for c in name if c in config.CODEPOINTS])
+    #print("Original name:", name)
+    name = ''.join([c for c in name.upper() if c in config.CODEPOINTS])
+    #print("Fixed name:", name)
     return name
 
 def check_changes():
@@ -192,7 +195,7 @@ def get_files(dt_from=None, dt_to=None):
                 if (dt_from is not None and dt < dt_from) or (dt_to is not None and dt > dt_to):
                   include_flag = False
               if include_flag:
-                # iFiles now list of lists [file_name, orientation, file_changed_date, exif_date]
+                # iFiles now list of lists [file_name, orientation, file_changed_date, exif_date] 
                 file_list.append([file_path_name, orientation, os.path.getmtime(file_path_name), dt])
   if shuffle:
     file_list.sort(key=lambda x: x[2]) # will be later files last
@@ -363,7 +366,7 @@ font = pi3d.Font(config.FONT_FILE, codepoints=config.CODEPOINTS, grid_size=grid_
 text = pi3d.PointText(font, CAMERA, max_chars=200, point_size=50)
 textblock = pi3d.TextBlock(x=-DISPLAY.width * 0.5 + 50, y=-DISPLAY.height * 0.4,
                           z=0.1, rot=0.0, char_count=199,
-                          text_format="{}".format(" "), size=0.99,
+                          text_format="{}".format(" "), size=0.99, 
                           spacing="F", space=0.02, colour=(1.0, 1.0, 1.0, 1.0))
 text.add_text_block(textblock)
 
@@ -390,9 +393,12 @@ while DISPLAY.loop_running():
         if next_pic_num == start_pic_num:
           nFi = 0
           break
-      # set the file name as the description
+      # set the file or dir name as the description
       if config.SHOW_NAMES_TM > 0.0:
-        textblock.set_text(text_format="{}".format(tidy_name(iFiles[pic_num][0])))
+        if config.USE_DIR_NAME:
+          textblock.set_text(text_format="{}".format(tidy_name(os.path.dirname(iFiles[pic_num][0]))))
+        else:
+          textblock.set_text(text_format="{}".format(tidy_name(iFiles[pic_num][0])))
         text.regen()
       else: # could have a NO IMAGES selected and being drawn
         textblock.set_text(text_format="{}".format(" "))
