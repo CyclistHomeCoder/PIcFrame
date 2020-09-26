@@ -28,8 +28,6 @@ import PIcFrame_config as config
 #####################################################
 # these variables can be altered using MQTT messaging
 #####################################################
-min_size = config.MIN_SIZE
-skip_dir = config.SKIP_DIR
 time_delay = config.TIME_DELAY
 fade_time = config.FADE_TIME
 shuffle = config.SHUFFLE
@@ -164,7 +162,7 @@ def get_files(dt_from=None, dt_to=None):
   picture_dir = os.path.join(config.PIC_DIR, subdirectory)
   for root, _dirnames, filenames in os.walk(picture_dir):
       mod_tm = os.stat(root).st_mtime # time of alteration in a directory
-      if len(root) and root.split(os.sep)[-1] == skip_dir:
+      if len(root) and root.split(os.sep)[-1] == config.SKIP_DIR:
           if config.VERBOSE:
               print('skipping directory because of skip_dir:', root)
 	  # Clean subdirlist
@@ -182,7 +180,7 @@ def get_files(dt_from=None, dt_to=None):
           if ext in extensions and not '.AppleDouble' in root and not filename.startswith('.'):
               file_path_name = os.path.join(root, filename)
               # check size
-              if os.stat(file_path_name).st_size < min_size:
+              if os.stat(file_path_name).st_size < config.MIN_SIZE:
                  if config.VERBOSE:
                     print('skipping file because of size', file_path_name)
                  #print('size:', os.stat(file_path_name).st_size)
