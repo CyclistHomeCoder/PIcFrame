@@ -7,7 +7,11 @@ Uses the pi3d (http://pi3d.github.io/) project and is heavily based on the Pictu
 
 Installation instructions:
 
-Install Raspberry Pi OS with Desktop. You probably want to disable screensaver and enable SSH. Maybe also boot to CLI.
+Install Raspberry Pi OS with Desktop:
+
+https://www.raspberrypi.org/downloads/raspberry-pi-os/
+
+You probably want to disable screensaver and enable SSH. Maybe also boot to CLI.
 
 If you have a Raspberry Pi 4 copy and paste this in the Terminal:
 
@@ -26,7 +30,7 @@ sudo pip3 install pi3d
 
 Download PIcFrame, unzip and run with supplied script.
 
-Options available and con figurable in PIcFrame_config.py.
+Options available and configurable in PIcFrame_config.py.
 
 
 
